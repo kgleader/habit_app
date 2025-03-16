@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_app/components/my_drawer.dart';
 import 'package:habit_app/components/my_habit_tile.dart';
+import 'package:habit_app/components/my_heat_map.dart';
 import 'package:habit_app/database/habit_datebase.dart';
 import 'package:habit_app/models/habit.dart';
 import 'package:habit_app/util/habit_util.dart';
@@ -165,16 +166,56 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(elevation: 0, backgroundColor: Colors.transparent),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).colorScheme.primary,
+      ),
       drawer: const MyDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewHabit,
         elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         child: const Icon(Icons.add),
       ),
-      body: _buildHabitList(),
+      body: ListView(
+        children: [
+          // H E A T M A P
+          _buildHeatMap(),
+
+          // H A B I T  L I S T
+          _buildHabitList(),
+        ],
+      ),
+    );
+  }
+
+  // build heat map
+  Widget _buildHeatMap() {
+    // habit db
+    final habitDatabase = context.watch<HabitDatebase>();
+
+    // current habits
+    List<Habit> currentHabits = habitDatabase.currentHabits;
+
+    // return heat map UI
+    return FutureBuilder<DateTime?>(
+      future: habitDatabase.getFirstDate(),
+      builder: (context, snapshot) {
+        //once the data available => build heat map
+        if (snapshot.hasData) {
+          return MyHeatMap(
+            startDate: snapshot.data!,
+            endDate: DateTime.now(),
+            datasets: prepHeatMapDateset(currentHabits),
+          );
+        }
+        //handle case where no data is returned
+        else {
+          return Container();
+        }
+      },
     );
   }
 
@@ -189,6 +230,8 @@ class _HomePageState extends State<HomePage> {
     // return list of habits UI
     return ListView.builder(
       itemCount: currentHabits.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         // get each individual habit
         final habit = currentHabits[index];

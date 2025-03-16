@@ -67,8 +67,8 @@ class MyHabitTile extends StatelessWidget {
                 style: TextStyle(
                   color:
                       isCompleted
-                          ? Colors.white
-                          : Theme.of(context).colorScheme.primary,
+                          ? Colors.brown
+                          : Theme.of(context).textTheme.bodyMedium?.color,
                 ),
               ),
               // checkbox
