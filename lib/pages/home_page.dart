@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                   // clear controller
                   textController.clear();
                 },
-                child: const Text('Cancel'),
+                child: const Text('Отменить'),
               ),
             ],
           ),
