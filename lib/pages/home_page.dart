@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                   // clear controller
                   textController.clear();
                 },
-                child: const Text('Save it'),
+                child: const Text('Save'),
               ),
               // cancel button
               MaterialButton(
