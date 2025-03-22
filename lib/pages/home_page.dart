@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                   // pop box
                   Navigator.pop(context);
                 },
-                child: const Text('Cancel'),
+                child: const Text('Cancel it'),
               ),
             ],
           ),
