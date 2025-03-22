@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
           (context) => AlertDialog(
             content: TextField(
               controller: textController,
-              decoration: const InputDecoration(hintText: "Edit habit"),
+              decoration: const InputDecoration(hintText: "Editing habit"),
             ),
             actions: [
               // save button
