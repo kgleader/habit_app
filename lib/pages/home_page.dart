@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                   // pop box
                   Navigator.pop(context);
                 },
-                child: const Text('Delete'),
+                child: const Text('Delete it'),
               ),
               // cancel button
               MaterialButton(
@@ -181,7 +181,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView(
         children: [
-          // H E A T M A P
+          // H E A T   M A P
           _buildHeatMap(),
 
           // H A B I T  L I S T
